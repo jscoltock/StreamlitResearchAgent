@@ -26,8 +26,7 @@ import streamlit as st
 
 browserless_api_key = st.secrets["BROWSERLESS_API_KEY"]
 serper_api_key = st.secrets["SERP_API_KEY"]
-
-os.environ["openai_api_key"] == st.secrets["openai_api_key"]
+openai_api_key = st.secrets["openai_api_key"]
 
 # 1. Tool for search
 
@@ -71,7 +70,7 @@ def scrape_website(objective: str, url: str):
     data_json = json.dumps(data)
 
     # Send the POST request
-    post_url = f"https://chrome.browserless.io/content?token={brwoserless_api_key}"
+    post_url = f"https://chrome.browserless.io/content?token={browserless_api_key}"
     response = requests.post(post_url, headers=headers, data=data_json)
     
     # Check the response status code
@@ -95,7 +94,7 @@ def scrape_website(objective: str, url: str):
 
 def summary(objective, content):
 
-    llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613")
+    llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613", openai_api_key=openai_api_key)
 
     text_splitter = RecursiveCharacterTextSplitter(
         separators=["\n\n", "\n"], chunk_size=10000, chunk_overlap=500)
@@ -170,7 +169,7 @@ agent_kwargs = {
 }
 
 
-llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613")
+llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613",openai_api_key=openai_api_key)
 #llm = ChatOpenAI(temperature=0, model="gpt-4")
 memory = ConversationSummaryBufferMemory(
     memory_key="memory", return_messages=True, llm=llm, max_token_limit=1000)
