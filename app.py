@@ -26,7 +26,7 @@ import streamlit as st
 
 browserless_api_key = st.secrets["BROWSERLESS_API_KEY"]
 serper_api_key = st.secrets["SERP_API_KEY"]
-openai_api_key = st.secrets["OPENAI_API_KEY"]
+secrets_openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
 # 1. Tool for search
@@ -95,7 +95,7 @@ def scrape_website(objective: str, url: str):
 
 def summary(objective, content):
 
-    llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613", openai_api_key=openai_api_key)
+    llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613", openai_api_key=secrets_openai_api_key)
 
     text_splitter = RecursiveCharacterTextSplitter(
         separators=["\n\n", "\n"], chunk_size=10000, chunk_overlap=500)
@@ -170,7 +170,7 @@ agent_kwargs = {
 }
 
 
-llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613",openai_api_key=openai_api_key)
+llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613",openai_api_key=secrets_openai_api_key)
 #llm = ChatOpenAI(temperature=0, model="gpt-4")
 memory = ConversationSummaryBufferMemory(
     memory_key="memory", return_messages=True, llm=llm, max_token_limit=1000)
@@ -189,7 +189,7 @@ def main():
     st.set_page_config(page_title="AI research agent", page_icon=":bird:")
 
     st.header("AI research agent :bird:")
-    st.write(openai_api_key)
+    st.write(secrets_openai_api_key)
     #openai_api_key = st.text_input("OpenAI API Key:",type="password")
 
     query = st.text_input("Research goal")
