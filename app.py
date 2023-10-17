@@ -28,7 +28,6 @@ browserless_api_key = st.secrets["BROWSERLESS_API_KEY"]
 serper_api_key = st.secrets["SERP_API_KEY"]
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
-st.write(openai_api_key)
 
 # 1. Tool for search
 
@@ -191,6 +190,7 @@ def main():
     st.set_page_config(page_title="AI research agent", page_icon=":bird:")
 
     st.header("AI research agent :bird:")
+    st.write(openai_api_key)
     #openai_api_key = st.text_input("OpenAI API Key:",type="password")
 
     query = st.text_input("Research goal")
