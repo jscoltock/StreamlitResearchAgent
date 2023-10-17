@@ -184,7 +184,6 @@ agent = initialize_agent(
     memory=memory,
 )
 
-
 # 4. Use streamlit to create a web app
 def main():
     st.set_page_config(page_title="AI research agent", page_icon=":bird:")
