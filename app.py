@@ -28,6 +28,8 @@ browserless_api_key = st.secrets["BROWSERLESS_API_KEY"]
 serper_api_key = st.secrets["SERP_API_KEY"]
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
+st.write(openai_api_key)
+
 # 1. Tool for search
 
 def search(query):
