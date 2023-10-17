@@ -26,7 +26,7 @@ import streamlit as st
 
 browserless_api_key = st.secrets["BROWSERLESS_API_KEY"]
 serper_api_key = st.secrets["SERP_API_KEY"]
-openai_api_key = st.secrets["openai_api_key"]
+openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 # 1. Tool for search
 
