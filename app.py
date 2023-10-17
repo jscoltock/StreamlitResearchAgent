@@ -20,10 +20,14 @@ from fastapi import FastAPI
 import streamlit as st
 
 
-load_dotenv()
+# load_dotenv()
+# brwoserless_api_key = os.getenv("BROWSERLESS_API_KEY")
+# serper_api_key = os.getenv("SERP_API_KEY")
 
-brwoserless_api_key = os.getenv("BROWSERLESS_API_KEY")
-serper_api_key = os.getenv("SERP_API_KEY")
+browserless_api_key = st.secrets["BROWSERLESS_API_KEY"]
+serper_api_key = st.secrets["SERP_API_KEY"]
+
+os.environ["openai_api_key"] == st.secrets["openai_api_key"]
 
 # 1. Tool for search
 
