@@ -18,16 +18,30 @@ import json
 from langchain.schema import SystemMessage
 from fastapi import FastAPI
 import streamlit as st
+import os
 
 # load_dotenv()
 # browserless_api_key = os.getenv("BROWSERLESS_API_KEY")
 # serper_api_key = os.getenv("SERP_API_KEY")
 # secrets_openai_api_key = os.getenv("OPENAI_API_KEY")
 
-browserless_api_key = st.secrets["BROWSERLESS_API_KEY"]
-serper_api_key = st.secrets["SERP_API_KEY"]
-secrets_openai_api_key = st.secrets["OPENAI_API_KEY"]
+# browserless_api_key = st.secrets["BROWSERLESS_API_KEY"]
+# serper_api_key = st.secrets["SERP_API_KEY"]
+# secrets_openai_api_key = st.secrets["OPENAI_API_KEY"]
 
+streamlit_server_port = os.environ.get("STREAMLIT_SERVER_PORT")
+
+st.write(streamlit_server_port)
+
+if streamlit_server_port == "8501" or streamlit_server_port == "8502":
+    load_dotenv()
+    browserless_api_key = os.getenv("BROWSERLESS_API_KEY")
+    serper_api_key = os.getenv("SERP_API_KEY")
+    secrets_openai_api_key = os.getenv("OPENAI_API_KEY")
+else:
+    browserless_api_key = st.secrets["BROWSERLESS_API_KEY"]
+    serper_api_key = st.secrets["SERP_API_KEY"]
+    secrets_openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 # 1. Tool for search
 
@@ -186,10 +200,10 @@ agent = initialize_agent(
 
 # 4. Use streamlit to create a web app
 def main():
-    st.set_page_config(page_title="AI research agent", page_icon=":bird:")
+    #st.set_page_config(page_title="AI research agent", page_icon=":bird:")
 
     st.header("AI research agent :bird:")
-    st.write(secrets_openai_api_key)
+    #st.write(secrets_openai_api_key)
     #openai_api_key = st.text_input("OpenAI API Key:",type="password")
 
     query = st.text_input("Research goal")
@@ -206,17 +220,17 @@ if __name__ == '__main__':
     main()
 
 
-# 5. Set this as an API endpoint via FastAPI
-app = FastAPI()
+# # 5. Set this as an API endpoint via FastAPI
+# app = FastAPI()
 
 
-class Query(BaseModel):
-    query: str
+# class Query(BaseModel):
+#     query: str
 
 
-@app.post("/")
-def researchAgent(query: Query):
-    query = query.query
-    content = agent({"input": query})
-    actual_content = content['output']
-    return actual_content
+# @app.post("/")
+# def researchAgent(query: Query):
+#     query = query.query
+#     content = agent({"input": query})
+#     actual_content = content['output']
+#     return actual_content
